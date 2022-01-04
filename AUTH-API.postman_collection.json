@@ -1,0 +1,265 @@
+{
+	"info": {
+		"_postman_id": "1bb28fc9-e695-4b58-be5d-ddb6e97c70c0",
+		"name": "AUTH-API-MBOH",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"Token\", jsonData[\"Data\"][\"token\"][\"AccessToken\"]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_name\" : \"Josh\",\n    \"user_password\" : \"1111\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{UrlPort}}/api/user/login",
+					"host": [
+						"{{UrlPort}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_name\" : \"Jason\",\n    \"user_password\" : \"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{UrlPort}}/api/user/login",
+							"host": [
+								"{{UrlPort}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 04 Jan 2022 03:30:08 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "637"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Data\": {\n        \"record\": {\n            \"ID\": 5,\n            \"CreatedAt\": \"2022-01-04T10:30:08.406103485+07:00\",\n            \"UpdatedAt\": \"2022-01-04T10:30:08.406103485+07:00\",\n            \"DeletedAt\": null,\n            \"Username\": \"Jason\",\n            \"IsAccepted\": true,\n            \"IsLogin\": true\n        },\n        \"token\": {\n            \"AccessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDEyNjcwMjMsImlhdCI6MTY0MTI2NzAwOCwiaXNzIjoiRU5JR01BIiwiVXNlcm5hbWUiOiJKYXNvbiIsIkVtYWlsIjoiIiwiQWNjZXNzVVVJRCI6IjJkMzhmNzM0LThhNWMtNDBkYS1hM2YzLWM1OTEzOWUzZTY5NCJ9.5xET4xC2hgegLUIjqxpk1p0Ag8zw-mYPSmdnWpin6LE\",\n            \"AccessUuid\": \"2d38f734-8a5c-40da-a3f3-c59139e3e694\",\n            \"AtExpires\": 1641267023\n        }\n    },\n    \"Message\": \"Success\",\n    \"NewError\": {\n        \"StatusCode\": 200,\n        \"ErrMsg\": null\n    },\n    \"StatusCode\": 200\n}"
+				}
+			]
+		},
+		{
+			"name": "Get User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{UrlPort}}/api/user/all",
+					"host": [
+						"{{UrlPort}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"all"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get User",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{UrlPort}}/api/user/all",
+							"host": [
+								"{{UrlPort}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"all"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 04 Jan 2022 03:32:12 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "631"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Data\": [\n        {\n            \"ID\": 1,\n            \"CreatedAt\": \"2022-01-04T08:51:50.089428+07:00\",\n            \"UpdatedAt\": \"2022-01-04T08:51:50.089428+07:00\",\n            \"DeletedAt\": null,\n            \"Username\": \"Jason\",\n            \"Password\": \"1234\",\n            \"Email\": \"jason@gmail.com\"\n        },\n        {\n            \"ID\": 2,\n            \"CreatedAt\": \"2022-01-04T09:17:39.457462+07:00\",\n            \"UpdatedAt\": \"2022-01-04T09:17:39.457462+07:00\",\n            \"DeletedAt\": null,\n            \"Username\": \"John\",\n            \"Password\": \"12345\",\n            \"Email\": \"john@gmail.com\"\n        },\n        {\n            \"ID\": 3,\n            \"CreatedAt\": \"2022-01-04T09:57:33.75888+07:00\",\n            \"UpdatedAt\": \"2022-01-04T09:57:33.75888+07:00\",\n            \"DeletedAt\": null,\n            \"Username\": \"Gin\",\n            \"Password\": \"11\",\n            \"Email\": \"gin@gmail.com\"\n        }\n    ],\n    \"Message\": \"Success\",\n    \"NewError\": {\n        \"StatusCode\": 200,\n        \"ErrMsg\": null\n    },\n    \"StatusCode\": 200\n}"
+				}
+			]
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{UrlPort}}/api/user/logout",
+					"host": [
+						"{{UrlPort}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_name\" : \"Josh\",\n    \"user_password\" : \"1111\",\n    \"email\" : \"josh@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{UrlPort}}/api/user",
+					"host": [
+						"{{UrlPort}}"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create User",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_name\" : \"Gin\",\n    \"user_password\" : \"11\",\n    \"email\" : \"gin@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{UrlPort}}/api/user",
+							"host": [
+								"{{UrlPort}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 04 Jan 2022 02:57:33 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "272"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Data\": {\n        \"ID\": 3,\n        \"CreatedAt\": \"2022-01-04T09:57:33.758880021+07:00\",\n        \"UpdatedAt\": \"2022-01-04T09:57:33.758880021+07:00\",\n        \"DeletedAt\": null,\n        \"Username\": \"Gin\",\n        \"Password\": \"11\",\n        \"Email\": \"gin@gmail.com\"\n    },\n    \"Message\": \"Success\",\n    \"NewError\": {\n        \"StatusCode\": 200,\n        \"ErrMsg\": null\n    },\n    \"StatusCode\": 200\n}"
+				}
+			]
+		}
+	]
+}

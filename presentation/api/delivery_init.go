@@ -3,6 +3,7 @@ package presentation
 import (
 	usecase "integration/presentation/usecase"
 	authenticator "integration/process/authentication"
+	middle "integration/utility/middleware"
 
 	"github.com/gin-gonic/gin"
 )
@@ -22,6 +23,8 @@ func NewServer(useCaseManager usecase.UseCaseManager, tokenServices authenticato
 	newServer := new(Routes)
 
 	r := gin.Default()
+	validatorMiddleware := middle.NewTokenValidator(tokenServices)
+	r.Use(validatorMiddleware.RequireToken())
 	publicRoute := r.Group("/api")
 	routers := []IDelivery{
 		NewUserApi(useCaseManager.UserUseCase(), tokenServices),
