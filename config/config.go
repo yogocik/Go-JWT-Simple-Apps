@@ -40,6 +40,8 @@ func NewConfig() *Config {
 	redisPASS := os.Getenv("REDIS_PASSWORD")
 	redisDB, _ := strconv.Atoi(os.Getenv("REDIS_DB"))
 	redisTIMEOUT, _ := strconv.Atoi(os.Getenv("REDIS_TIMEOUT"))
+	appName := os.Getenv("APP_NAME")
+	signKey := os.Getenv("SIGN_KEY")
 
 	kvs_opt := &redis.Options{
 		Addr:     redisHOST + ":" + redisPORT,
@@ -60,8 +62,8 @@ func NewConfig() *Config {
 	config.RepoManager = repoManager
 	config.UseCaseManager = useCaseManager
 	tokenConfig := authenticator.TokenConfig{
-		ApplicationName:     "ENIGMA",
-		JwtSignatureKey:     "P@ssw0rd",
+		ApplicationName:     appName,
+		JwtSignatureKey:     signKey,
 		JwtSigningMethod:    jwt.SigningMethodHS256,
 		AccessTokenLifeTime: time.Duration(redisTIMEOUT) * time.Second,
 		Client:              config.RepoManager.CacheRepo(),
