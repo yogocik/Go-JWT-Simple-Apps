@@ -101,6 +101,7 @@ func (api *UserApi) login(c *gin.Context) {
 		return
 	}
 	allUser, err := api.usecase.GetByUserName(user.Username)
+	fmt.Println("GET BY NAME", allUser)
 	if err != nil {
 		errModel := response.NewInternalServerError(err)
 		c.AbortWithStatusJSON(errModel.StatusCode, response.NewResponse("Internal Server Error",
@@ -113,7 +114,7 @@ func (api *UserApi) login(c *gin.Context) {
 			nil, errModel))
 		return
 	}
-	fmt.Println("Password from DB ->", allUser.Password, "Pasword Form ->", user.Password)
+	fmt.Println("User and Password from DB ->", allUser.Username, allUser.Password, "User Pasword Form ->", user.Username, user.Password)
 	if allUser.Password != user.Password {
 		errModel := response.NewUnauthorizedError(err)
 		c.AbortWithStatusJSON(errModel.StatusCode, response.NewResponse("Invalid password",

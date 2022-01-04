@@ -36,7 +36,7 @@ func (t *UserRepository) GetAll() ([]m.User, error) {
 
 func (t *UserRepository) GetByUserName(name string) (m.User, error) {
 	var userList m.User
-	result := t.db.Find(&userList).Where("user_name = ?", name)
+	result := t.db.Where("username = ?", name).Find(&userList)
 	return userList, u.HandleGormError(result)
 }
 
